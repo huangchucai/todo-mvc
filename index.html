@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Template • TodoMVC • Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <section class="todoapp">
+      <header class="header">
+        <h1>{{title}}</h1>
+        <input class="new-todo" @keydown.enter="addList" placeholder="What needs to be done?" autofocus v-model="inputValue">
+      </header>
+      <!-- This section should be hidden by default and shown when there are todos -->
+      <section class="main">
+        <input class="toggle-all" type="checkbox">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list">
+          <!-- These are here just to show the structure of the list items -->
+          <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+          <li :class="{completed: item.complete}" v-for="(item, index) in filterLists">
+            <div class="view">
+              <input class="toggle" type="checkbox" :checked='item.complete' v-model="item.complete">
+              <label>{{item.title}}</label>
+              <button class="destroy" @click=deleteList(index)></button>
+            </div>
+            <input class="edit" value="Create a TodoMVC template">
+          </li>
+        </ul>
+      </section>
+      <!-- This footer should hidden by default and shown when there are todos -->
+      <footer class="footer">
+        <!-- This should be `0 items left` by default -->
+        <span class="todo-count"><strong>{{lists.length}}</strong> item left</span>
+        <!-- Remove this if you don't implement routing -->
+        <ul class="filters">
+          <li>
+            <a :class="{selected: visible==='All'}" href="#/" @click.prevent="visible = 'All'">All</a>
+          </li>
+          <li>
+            <a :class="{selected: visible==='Active'}"  href="#/active" @click.prevent="activeList">Active</a>
+          </li>
+          <li>
+            <a :class="{selected: visible==='Completed'}" href="#/completed" @click.prevent="completeList">Completed</a>
+          </li>
+        </ul>
+        <!-- Hidden if no completed items are left ↓ -->
+        <button v-show="someComputed" class="clear-completed" @click="clearComplete">Clear completed</button>
+      </footer>
+    </section>
+  </div>
+</body>
+
+</html>
