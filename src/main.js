@@ -7,24 +7,24 @@ new Vue({
   el: '#app',
   data() {
     return {
-       title: 'todos',
-       inputValue: null,
-       lists: [
-         {title: 'Taste JavaScript', complete: true},
-         {title: 'Buy a unicorn', complete: false},
-       ],
-       visible: 'All'
+      title: 'todos',
+      inputValue: null,
+      lists: [
+        { title: 'Taste JavaScript', complete: true },
+        { title: 'Buy a unicorn', complete: false },
+      ],
+      visible: 'All'
     }
   },
   methods: {
     addList() {
       this.lists.push(
-        {title: this.inputValue, complete: false},
+        { title: this.inputValue, complete: false },
       )
       this.inputValue = null;
     },
     deleteList(idx) {
-      this.lists.splice(idx,1);
+      this.lists.splice(idx, 1);
     },
     activeList() {
       this.visible = 'Active'
@@ -33,7 +33,7 @@ new Vue({
       this.visible = 'Completed'
     },
     clearComplete() {
-      this.lists =  this.lists.filter(item => !item.complete)
+      this.lists = this.lists.filter(item => !item.complete)
     }
   },
   computed: {
@@ -41,15 +41,19 @@ new Vue({
       return this.lists.some(item => item.complete)
     },
     filterLists() {
-      if(this.visible = 'Active') {
+      if (this.visible === 'Active') {
         return this.lists.filter(item => !item.complete)
       }
-      else if(this.visible = 'Completed') {
-        console.log(1)
+      else if (this.visible === 'Completed') {
         return this.lists.filter(item => item.complete)
-      } else if(this.visible = 'All') {
+      } else if (this.visible === 'All') {
         return this.lists
-      } 
+      } else {
+        return this.lists
+      }
+    },
+    activeLength() {
+      return (this.lists.filter(item => !item.complete)).length
     }
   }
 })
